@@ -1,6 +1,7 @@
 var rAssist;
 var bookmarksTree;
 var RAsearches;
+var markCount=0;
 
 function setBookmarkRoot(callback) {
   chrome.bookmarks.search({'title': 'Research Assist'}, function (tmp) {
@@ -23,7 +24,9 @@ function getChildren(node) {
       if (!bmNodes[i].url)
         getChildren(bmNodes[i]);
       else {
-        RAsearches.innerHTML += "<li> <a href='" + bmNodes[i].url + "'>" + bmNodes[i].title + " </a> </li>";
+        markCount++;
+        RAsearches.innerHTML += "<li> <a href='" + bmNodes[i].url + "' target='_blank'>" + bmNodes[i].title + " </a> </li>";
+        chrome.browserAction.setBadgeText({'text':markCount.toString()});
       }
     }
   });

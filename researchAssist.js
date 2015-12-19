@@ -1,7 +1,3 @@
-// Copyright (c) 2014 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 var rAssist;
 var isSearching = false;
 var search = "";
@@ -96,6 +92,7 @@ function createMark(searchTerm, url, title, callback) {
        {
          search = query;
          isSearching = true;
+         chrome.alarms.create("RAsearchAlarm", {'delayInMinutes':7.0})
        }
  }, {urls: ["*://www.google.com/*q=*", "*://www.bing.com/*q=*", "*://www.yahoo.com/*t=*", "*://www.ask.com/*q=*", "*://search.aol.com/*q=*", "*://www.searchaol.com/*q=*", "*://*.wow.com/*q=*",
             "*://www.webcrawler.com/*q=*", "*://*.infospace.com/*q=*", "*://www.dogpile.com/*q=*"]});
@@ -110,3 +107,9 @@ chrome.webRequest.onCompleted.addListener(function (e) {
     });
   }
 }, {urls: ["*://*/*"], types: ["main_frame"]});
+
+chrome.alarms.onAlarm.addListener(function (alarm){
+  if (alarm.name == "RAsearchAlarm") {
+    isSearching = false;
+  }
+});
