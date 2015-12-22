@@ -38,17 +38,6 @@ function init() {
   setBookmarkRoot(function (rAssistNode) {
     rAssist = rAssistNode;
     getChildren(rAssist);
-  /*chrome.bookmarks.getChildren(rAssist.id, function (bmNodes) {
-      for (var i=0; i<bmNodes.length; i++)
-      {
-        //probably shouldn't be doing it this way with html as text...
-        if (!bmNodes[i].url) //later this could be logic for starting a sub ul
-          continue;
-        RAsearches.innerHTML += "<li> <a href='" + bmNodes[i].url + "'>'" + bmNodes[i].title + " </a> </li>";
-        console.log(bmNodes[i]);
-      }
-      console.log(bmNodes);
-    }); */
   });
 }
 
