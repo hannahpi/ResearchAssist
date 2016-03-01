@@ -3,7 +3,7 @@
 
   "name": "Research Assist",
   "description": "This extension keeps track of searches and results that you click on.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icons": {"128": "icon.png"},
 
   "background":

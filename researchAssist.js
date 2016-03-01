@@ -3,6 +3,7 @@ var isSearching = false;
 var search = "";
 var prevSearch = "";
 var searchFolder;
+var urlsCheck = "chrome:\/\/*.|.*www.google.com\/.*q=.*|.*www.bing.com\/*q=*|.*www.yahoo.com\/.*t=.*|.*www.ask.com\/.*q=.*|.*search.aol.com\/.*q=.*|.*www.searchaol.com\/.*q=.*|.*.wow.com\/.*q=.*|.*www.webcrawler.com\/.*q=.*|.*.infospace.com\/.*q=.*|.*www.dogpile.com\/.*q=.*";
 setBookmarkRoot();
 
 /**
@@ -39,7 +40,16 @@ function getMarkSearchRoot(searchTerm, callback) {
   });
 }
 
+function checkURL(url) {
+  if (url.length == 0)
+    return false;
+  else
+    return (!url.match(urlsCheck));
+}
+
 function createMark(searchTerm, url, title, callback) {
+  if (!checkURL(url))  //make sure url is "valid" i.e. not a search
+    return;
   getMarkSearchRoot(searchTerm, function (sFolder) {
     searchFolder = sFolder;
     chrome.bookmarks.search({'title':title, 'url':url }, function (bmsFound) {
